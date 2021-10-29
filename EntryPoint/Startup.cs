@@ -25,6 +25,7 @@ namespace EntryPoint
 		{
 			services.AddControllersWithViews();
 			services.AddDbContext<Context>();
+			services.AddSingleton<Domain>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

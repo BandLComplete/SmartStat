@@ -1,11 +1,13 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntryPoint.Database
 {
 	public class User
 	{
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
+		[Key]
 		public string Name { get; set; }
+		public string Password { get; set; }
 	}
 }

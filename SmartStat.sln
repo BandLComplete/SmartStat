@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntryPoint", "EntryPoint\EntryPoint.csproj", "{82D7949B-2C36-4A72-AD54-B98CCBCF4756}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstApp", "C:\Users\Aleksandr\source\repos\FirstApp\FirstApp\FirstApp\FirstApp.csproj", "{5FE9EBD4-2CFB-4B84-8BD0-971A021D7E1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstApp", "FirstApp\FirstApp\FirstApp.csproj", "{5FE9EBD4-2CFB-4B84-8BD0-971A021D7E1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstApp.Android", "C:\Users\Aleksandr\source\repos\FirstApp\FirstApp\FirstApp.Android\FirstApp.Android.csproj", "{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstApp.Android", "FirstApp\FirstApp.Android\FirstApp.Android.csproj", "{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
