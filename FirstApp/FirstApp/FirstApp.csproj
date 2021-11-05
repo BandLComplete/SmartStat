@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -17,7 +17,14 @@
     <PackageReference Include="XamForms.Controls.Calendar" Version="1.1.1" />
   </ItemGroup>
 
+  <!--<ItemGroup>
+    <ProjectReference Include="..\..\EntryPoint\EntryPoint.csproj" />
+  </ItemGroup>-->
+
   <ItemGroup>
+    <EmbeddedResource Update="Pages\AddPracties.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\MyCalendar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

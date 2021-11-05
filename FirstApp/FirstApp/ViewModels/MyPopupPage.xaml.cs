@@ -27,6 +27,7 @@ namespace FirstApp
                 Text = "Добавить событие"
             };
 
+            AddEventButton.Clicked += AddEvantButton_Clicked;
 
 
 
@@ -38,7 +39,7 @@ namespace FirstApp
 
         async void AddEvantButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopToRootAsync();
+            await Navigation.PopAsync();
         }
 
 

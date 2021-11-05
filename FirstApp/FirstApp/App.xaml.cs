@@ -11,7 +11,7 @@ namespace FirstApp
             InitializeComponent();
             //MainPage = new NavigationPage(new MainPage());
             //MainPage = new HomeFlyoutPage();
-            MainPage = new MyCalendar();
+            MainPage = new NavigationPage(new MyCalendar());
 
         }
 

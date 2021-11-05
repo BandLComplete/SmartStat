@@ -55,15 +55,16 @@ namespace FirstApp
         }
 
 
-        protected void DateClickedEvent(object s, EventArgs a)
-        {
-            actionLabel.Text = "ergqergqeqg";
-        }
+        //protected void DateClickedEvent(object s, EventArgs a)
+        //{
+        //    actionLabel.Text = "ergqergqeqg";
+        //}
 
         private async void AddingButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushPopupAsync(new MyPopupPage());
+            //await Navigation.PushPopupAsync(new MyPopupPage());
             //await PopupNavigation.PushAsync(new MyPopupPage);
+            await Navigation.PushAsync(new AddPracties());
         }
     }
 }
