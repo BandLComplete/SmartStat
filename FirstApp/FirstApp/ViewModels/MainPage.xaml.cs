@@ -19,12 +19,15 @@ namespace FirstApp
         {
             var login = new Entry()
             {
-                Placeholder = "Логин"
+                Placeholder = "Логин",
+                IsTextPredictionEnabled = false
             };
 
             var passward = new Entry()
             {
                 Placeholder = "Пароль",
+                IsSpellCheckEnabled = false,
+                IsTextPredictionEnabled = false,
                 IsPassword = true
             };
 
@@ -33,12 +36,14 @@ namespace FirstApp
                 Text = "Вход"
             };
 
+
             var registerButton = new Button()
             {
                 Text = "Регистрация"
             };
 
             registerButton.Clicked += RegisterButton_Clicked;
+            loginButton.Clicked += LoginButton_Clicked;
 
 
             Content = new StackLayout
@@ -46,6 +51,13 @@ namespace FirstApp
                 Children = { login, passward, loginButton, registerButton }
 
             };
+        }
+
+        private  void LoginButton_Clicked(object sender, EventArgs e)
+        {
+            //await Navigation.PushAsync(new HomeFlyoutPage());
+            Application.Current.MainPage = new HomeFlyoutPage();
+
         }
 
         private async void RegisterButton_Clicked(object sender, EventArgs e)

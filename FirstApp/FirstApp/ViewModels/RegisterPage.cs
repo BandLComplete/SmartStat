@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace FirstApp
 {
+    /// <summary>
+    /// Поменять тип стрницы
+    /// </summary>
     public class RegisterPage : ContentPage
     {
         public RegisterPage()
@@ -22,12 +20,11 @@ namespace FirstApp
                 Text = "Зарегестрироваться"
             };
 
-
+            
 
             Content = new StackLayout
             {
-                Children = {Name,asseptRegister}
-
+                Children = { Name, asseptRegister }
             };
         }
     }
