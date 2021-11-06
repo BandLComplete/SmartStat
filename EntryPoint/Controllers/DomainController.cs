@@ -1,14 +1,19 @@
 using System;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using EntryPoint.Database;
-using Microsoft.AspNetCore.Identity;
+using FirstApp.Service;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace EntryPoint
+namespace EntryPoint.Controllers
 {
-	public class Domain
+	public class DomainController : Controller
 	{
-		public Domain(Context context)
+		public DomainController(Context context)
 		{
 			this.context = context;
 			users = context.Users;
@@ -31,13 +36,19 @@ namespace EntryPoint
 			return context.SaveChanges() == 1;
 		}
 
-		public void AddPractice(Practice practice)
+		[HttpPost, Route("AddPractice")]
+		public void AddPractice()
 		{
-			practices.Add(practice);
-			context.SaveChanges();
+			var ms = new MemoryStream();
+			Request.Body.CopyToAsync(ms).GetAwaiter().GetResult();
+			var s = Encoding.UTF8.GetString(ms.ToArray());
+			var practice = JsonSerializer.Deserialize<Practice>(s);
+			int i = 0;
+			// practices.Add(practiceDb);
+			// context.SaveChanges();
 		}
 
-		public Practice[] GetPractices(User user, DateTime? exclusiveStart, DateTime? inclusiveEnd)
+		public PracticeDb[] GetPractices(User user, DateTime? exclusiveStart, DateTime? inclusiveEnd)
 		{
 			return practices.Where(p => p.Users.Contains(user.Name) &&
 			                            (exclusiveStart == null || p.Date > exclusiveStart) &&
@@ -47,6 +58,7 @@ namespace EntryPoint
 		
 		private readonly Context context;
 		private readonly DbSet<User> users;
-		private readonly DbSet<Practice> practices;
+		private readonly DbSet<PracticeDb> practices;
+		private readonly ByteSerializer serializer = new ByteSerializer();
 	}
 }

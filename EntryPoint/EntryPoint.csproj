@@ -13,6 +13,11 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.10" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.10" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+      <PackageReference Include="System.Text.Json" Version="6.0.0-rc.2.21480.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FirstApp\FirstApp\FirstApp.csproj" />
     </ItemGroup>
 
 </Project>

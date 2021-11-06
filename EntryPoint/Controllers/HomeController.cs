@@ -3,6 +3,7 @@ using System.Linq;
 using EntryPoint.Database;
 using Microsoft.AspNetCore.Mvc;
 using EntryPoint.Models;
+using FirstApp.Service;
 
 namespace EntryPoint.Controllers
 {
@@ -17,9 +18,8 @@ namespace EntryPoint.Controllers
 
 		public IActionResult Index()
 		{
-			context.Users.Add(new User {Name = "test"});
-			context.SaveChanges();
-			var array = context.Users.ToArray();
+			var a = new Client();
+			a.AddPractice(new Practice{Id = 1}).GetAwaiter().GetResult();
 			return View();
 		}
 

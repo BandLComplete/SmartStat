@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntryPoint.Database
 {
-	public class Practice
+	public class PracticeDb
 	{
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string[] Users { get; set; }
+		public string Users { get; set; }
 		public DateTime Date { get; set; }
 		public TimeSpan Length { get; set; }
 		public string Place { get; set; }

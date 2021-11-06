@@ -25,7 +25,6 @@ namespace EntryPoint
 		{
 			services.AddControllersWithViews();
 			services.AddDbContext<Context>();
-			services.AddSingleton<Domain>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,6 +51,9 @@ namespace EntryPoint
 				endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller=Home}/{action=Index}/{id?}");
+				// endpoints.MapControllerRoute(
+				// 	name: "domain",
+				// 	pattern: "{controller=Domain}/{action=Index}/{id?}");
 			});
 		}
 	}
