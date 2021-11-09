@@ -13,7 +13,10 @@ namespace FirstApp
             var Name = new Entry()
             {
                 Placeholder = "Имя"
+
             };
+            
+
 
             var asseptRegister = new Button()
             {

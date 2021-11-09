@@ -19,7 +19,7 @@ namespace EntryPoint.Controllers
 		public IActionResult Index()
 		{
 			var a = new Client();
-			a.AddPractice(new Practice{Id = 1}).GetAwaiter().GetResult();
+			//a.AddPractice(new Practice{Id = 1}).GetAwaiter().GetResult();
 			return View();
 		}
 

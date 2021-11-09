@@ -26,7 +26,7 @@ namespace FirstApp.Service
             return response.IsSuccessStatusCode;
         }
 
-        private const string url = "https://localhost:5001";
+        private const string url = "https://localhost:44332";
         
         private readonly HttpClient client;
     }

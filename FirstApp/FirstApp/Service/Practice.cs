@@ -5,15 +5,15 @@ namespace FirstApp.Service
     [Serializable]
     public class Practice
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string[] Users { get; set; }
-        public DateTime Date { get; set; }
-        public TimeSpan Length { get; set; }
-        public string Place { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
-        public string Tag { get; set; }
-        public TimeSpan? Notification { get; set; }
+        public int Id { get; set; } // ИД тренировки
+        public string Name { get; set; } //Название события done
+        public string[] Users { get; set; } //Логины done
+        public DateTime Date { get; set; } // Дата done
+        public TimeSpan Length { get; set; } // Продолжительность тренировки done
+        public string Place { get; set; } //Место done
+        public string Type { get; set; } // Тип done
+        public string Description { get; set; } //Описание тренировки done
+        public string Tag { get; set; } // Тэг от маши done
+        public TimeSpan? Notification { get; set; } //Уведомление 
     }
 }

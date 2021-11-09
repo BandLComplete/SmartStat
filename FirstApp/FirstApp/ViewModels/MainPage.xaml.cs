@@ -10,6 +10,12 @@ namespace FirstApp
 {
     public partial class MainPage : ContentPage
     {
+        public static readonly Entry login = new Entry()
+        {
+            Placeholder = "Логин",
+            IsTextPredictionEnabled = false
+        };
+
         public MainPage()
         {
             InitializeComponent();
@@ -17,11 +23,6 @@ namespace FirstApp
 
         protected override void OnAppearing()
         {
-            var login = new Entry()
-            {
-                Placeholder = "Логин",
-                IsTextPredictionEnabled = false
-            };
 
             var passward = new Entry()
             {
