@@ -2,33 +2,29 @@
 
 namespace FirstApp
 {
-    /// <summary>
-    /// Поменять тип стрницы
-    /// </summary>
-    public class RegisterPage : ContentPage
-    {
-        public RegisterPage()
-        {
-
-            var Name = new Entry()
-            {
-                Placeholder = "Имя"
-
-            };
-            
+	/// <summary>
+	/// Поменять тип стрницы
+	/// </summary>
+	public class RegisterPage : ContentPage
+	{
+		public RegisterPage()
+		{
+			var Name = new Entry()
+			{
+				Placeholder = "Имя"
+			};
 
 
-            var asseptRegister = new Button()
-            {
-                Text = "Зарегестрироваться"
-            };
+			var asseptRegister = new Button()
+			{
+				Text = "Зарегестрироваться"
+			};
 
-            
 
-            Content = new StackLayout
-            {
-                Children = { Name, asseptRegister }
-            };
-        }
-    }
+			Content = new StackLayout
+			{
+				Children = {Name, asseptRegister}
+			};
+		}
+	}
 }

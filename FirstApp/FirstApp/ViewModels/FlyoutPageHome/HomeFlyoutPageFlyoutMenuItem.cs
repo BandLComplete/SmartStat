@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace FirstApp
 {
-    public class HomeFlyoutPageFlyoutMenuItem
-    {
-        public HomeFlyoutPageFlyoutMenuItem()
-        {
-            TargetType = typeof(HomeFlyoutPageFlyoutMenuItem);
-        }
-        public int Id { get; set; }
-        public string Title { get; set; }
+	public class HomeFlyoutPageFlyoutMenuItem
+	{
+		public HomeFlyoutPageFlyoutMenuItem()
+		{
+			TargetType = typeof(HomeFlyoutPageFlyoutMenuItem);
+		}
 
-        public Type TargetType { get; set; }
-    }
+		public int Id { get; set; }
+		public string Title { get; set; }
+
+		public Type TargetType { get; set; }
+	}
 }

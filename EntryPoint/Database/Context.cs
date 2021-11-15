@@ -8,16 +8,18 @@ namespace EntryPoint.Database
 	{
 		public DbSet<User> Users { get; set; }
 		public DbSet<PracticeDb> Practices { get; set; }
-		
-		public string DbPath { get; private set; }
 
+		private readonly string dbPath;
+
+#pragma warning disable 8618
 		public Context()
 		{
 			var folder = Environment.CurrentDirectory;
-			DbPath = Path.Combine(folder, "smartStat.db");
+			dbPath = Path.Combine(folder, "smartStat.db");
 		}
+#pragma warning restore 8618
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options)
-			=> options.UseSqlite($"Data Source={DbPath}");
+			=> options.UseSqlite($"Data Source={dbPath}");
 	}
 }

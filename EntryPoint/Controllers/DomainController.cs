@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using EntryPoint.Database;
@@ -43,9 +42,15 @@ namespace EntryPoint.Controllers
 			Request.Body.CopyToAsync(ms).GetAwaiter().GetResult();
 			var s = Encoding.UTF8.GetString(ms.ToArray());
 			var practice = JsonSerializer.Deserialize<Practice>(s);
-			int i = 0;
-			// practices.Add(practiceDb);
-			// context.SaveChanges();
+			practices.Add(practice!.ToDb());
+			context.SaveChanges();
+		}
+
+		[HttpGet, Route("GetPractices")]
+		public string GetPractices()
+		{
+			var result = practices.Select(p => p.ToModel()).ToArray();
+			return JsonSerializer.Serialize(result);
 		}
 
 		public PracticeDb[] GetPractices(User user, DateTime? exclusiveStart, DateTime? inclusiveEnd)
@@ -55,10 +60,9 @@ namespace EntryPoint.Controllers
 			                            (inclusiveEnd == null || p.Date <= inclusiveEnd))
 				.ToArray();
 		}
-		
+
 		private readonly Context context;
 		private readonly DbSet<User> users;
 		private readonly DbSet<PracticeDb> practices;
-		private readonly ByteSerializer serializer = new ByteSerializer();
 	}
 }

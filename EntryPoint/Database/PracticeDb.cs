@@ -5,8 +5,11 @@ namespace EntryPoint.Database
 {
 	public class PracticeDb
 	{
+#pragma warning disable 8618
+
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
+
 		public string Name { get; set; }
 		public string Users { get; set; }
 		public DateTime Date { get; set; }
@@ -16,5 +19,7 @@ namespace EntryPoint.Database
 		public string Description { get; set; }
 		public string? Tag { get; set; }
 		public TimeSpan? Notification { get; set; }
+
+#pragma warning restore 8618
 	}
 }
