@@ -48,7 +48,7 @@ namespace FirstApp
 
 			Content = new StackLayout
 			{
-				Children = {login, passward, loginButton, registerButton}
+				Children = { login, passward, loginButton, registerButton }
 			};
 		}
 

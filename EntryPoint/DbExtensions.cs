@@ -1,20 +1,36 @@
-﻿using System;
+﻿using Domain;
 using EntryPoint.Database;
-using FirstApp.Service;
 
 namespace EntryPoint
 {
-	public static class PracticeExtensions
+	public static class DbExtensions
 	{
+		public static User ToModel(this UserDb userDb)
+		{
+			return new User
+			{
+				Name = userDb.Name,
+				Password = userDb.Password,
+			};
+		}
+
+		public static UserDb ToDb(this User user)
+		{
+			return new UserDb
+			{
+				Name = user.Name,
+				Password = user.Password,
+			};
+		}
+
 		public static Practice ToModel(this PracticeDb practiceDb)
 		{
 			return new Practice
 			{
-				Id = practiceDb.Id,
 				Name = practiceDb.Name,
 				Users = practiceDb.Users.Split(separator),
 				Date = practiceDb.Date,
-				Length = practiceDb.Length,
+				LengthInMinutes = practiceDb.LengthInMinutes,
 				Place = practiceDb.Place,
 				Type = practiceDb.Type,
 				Description = practiceDb.Description,
@@ -27,11 +43,10 @@ namespace EntryPoint
 		{
 			return new PracticeDb
 			{
-				Id = practice.Id,
 				Name = practice.Name,
 				Users = string.Join(separator, practice.Users),
 				Date = practice.Date,
-				Length = practice.Length,
+				LengthInMinutes = practice.LengthInMinutes,
 				Place = practice.Place,
 				Type = practice.Type,
 				Description = practice.Description,

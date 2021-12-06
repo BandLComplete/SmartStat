@@ -13,7 +13,7 @@ namespace EntryPoint.Database
 		public string Name { get; set; }
 		public string Users { get; set; }
 		public DateTime Date { get; set; }
-		public TimeSpan Length { get; set; }
+		public int LengthInMinutes { get; set; }
 		public string Place { get; set; }
 		public string Type { get; set; }
 		public string Description { get; set; }

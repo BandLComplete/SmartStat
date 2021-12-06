@@ -1,9 +1,5 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using EntryPoint.Database;
+﻿using EntryPoint.Database;
 using Microsoft.AspNetCore.Mvc;
-using EntryPoint.Models;
-using FirstApp.Service;
 
 namespace EntryPoint.Controllers
 {

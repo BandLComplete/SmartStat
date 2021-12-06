@@ -12,7 +12,7 @@ namespace FirstApp
 	{
 		public StackLayout layout = new StackLayout()
 		{
-			Children = {calendar}
+			Children = { calendar }
 		};
 
 		public readonly static Calendar calendar = new Calendar()

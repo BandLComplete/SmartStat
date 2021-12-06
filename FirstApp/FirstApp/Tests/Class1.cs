@@ -1,7 +1,5 @@
-﻿using FirstApp.Service;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using Domain;
 
 namespace FirstApp.Tests
 {
@@ -11,7 +9,7 @@ namespace FirstApp.Tests
 		{
 			Name = "Тренировка в зале",
 			Date = new DateTime(2021, 11, 09, 14, 00, 00),
-			Length = new TimeSpan(2, 15, 00),
+			LengthInMinutes = 135,
 			Place = "Зал",
 			Type = "Тренировка на ноги",
 			Description = "йлткпйкптдлкйпдьпьйжукдпдйуп ",

@@ -1,10 +1,5 @@
-﻿using FirstApp.Service;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Domain;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,7 +8,7 @@ namespace FirstApp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddPracties : ContentPage
 	{
-		private readonly char[] separators = new char[] {' ', ',', '.'};
+		private readonly char[] separators = new char[] { ' ', ',', '.' };
 
 
 		private readonly TimePicker timeEndOfEvent = new TimePicker();
@@ -104,7 +99,7 @@ namespace FirstApp
 			{
 				Date = MyCalendar.calendar.SelectedDate.Value + timePicker.Time,
 				Name = nameEvent.Text,
-				Length = timePicker.Time - timeEndOfEvent.Time,
+				LengthInMinutes = (int)(timePicker.Time - timeEndOfEvent.Time).TotalMinutes,
 				Place = placeEvent.Text,
 				Type = typeEvent.Text,
 				Description = descriptionEvent.Text,

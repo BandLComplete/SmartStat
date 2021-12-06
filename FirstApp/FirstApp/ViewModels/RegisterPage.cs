@@ -23,7 +23,7 @@ namespace FirstApp
 
 			Content = new StackLayout
 			{
-				Children = {Name, asseptRegister}
+				Children = { Name, asseptRegister }
 			};
 		}
 	}

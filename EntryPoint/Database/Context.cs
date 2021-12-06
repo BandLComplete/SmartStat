@@ -6,7 +6,7 @@ namespace EntryPoint.Database
 {
 	public class Context : DbContext
 	{
-		public DbSet<User> Users { get; set; }
+		public DbSet<UserDb> Users { get; set; }
 		public DbSet<PracticeDb> Practices { get; set; }
 
 		private readonly string dbPath;
