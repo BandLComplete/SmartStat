@@ -56,6 +56,8 @@ namespace EntryPoint.Controllers
 					users.Add(user.ToDb());
 					break;
 				case 1:
+					if (userDb == null)
+						return true;
 					users.Remove(userDb);
 					break;
 			}
@@ -63,18 +65,39 @@ namespace EntryPoint.Controllers
 			return context.SaveChanges() == 1;
 		}
 
-		[HttpPost, Route("AddPractice")]
-		public void AddPractice()
+		[HttpPost, Route(Api.AddPractice)]
+		public string AddPractice()
 		{
 			var practice = ReadBody<Practice>().ToDb();
 			practices.Add(practice);
-			context.SaveChanges();
+			var result = context.SaveChanges() == 1;
+			return JsonSerializer.Serialize(result);
 		}
 
-		[HttpGet, Route("GetPractices")]
+		[HttpPost, Route(Api.DeletePractice)]
+		public string DeletePractice()
+		{
+			var practice = ReadBody<Practice>();
+			return JsonSerializer.Serialize(DeletePractice(practice));
+		}
+
+		private bool DeletePractice(Practice practice)
+		{
+			var db = practice.ToDb();
+			var existing = practices.FirstOrDefault(p =>
+				p.Name == practice.Name && p.Date == practice.Date && p.Users == db.Users);
+			if (existing == null)
+				return true;
+			practices.Remove(existing);
+			return context.SaveChanges() == 1;
+		}
+
+		[HttpPost, Route(Api.GetPractices)]
 		public string GetPractices()
 		{
-			var result = practices.Select(p => p.ToModel()).ToArray();
+			var practice = ReadBody<Practice>();
+
+			var result = practices.Where(p => p.Date.Date == practice.Date.Date).Select(p => p.ToModel()).ToArray();
 			return JsonSerializer.Serialize(result);
 		}
 

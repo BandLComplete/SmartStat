@@ -36,17 +36,22 @@ namespace Domain
 
 		public async Task<bool> AddPractice(Practice practice)
 		{
-			var s = JsonSerializer.Serialize(practice);
-			var content = new ByteArrayContent(Encoding.UTF8.GetBytes(s));
-			var response = await client.PostAsync(Url + "/AddPractice", content).ConfigureAwait(false);
-			return response.IsSuccessStatusCode;
+			return await SendPost<Practice, bool>(practice, Api.AddPractice);
 		}
 
-		public async Task<Practice[]> GetPractices()
+		public async Task<bool> DeletePractice(Practice practice)
 		{
-			var response = await client.GetAsync(Url + "/GetPractices").ConfigureAwait(false);
-			return JsonSerializer.Deserialize<Practice[]>(await response.Content.ReadAsStringAsync()
-				.ConfigureAwait(false));
+			return await SendPost<Practice, bool>(practice, Api.DeletePractice);
+		}
+
+		/// <summary>
+		/// Поиск тренировок
+		/// </summary>
+		/// <param name="practice">Сюда пихать нужные значения для поиска</param>
+		/// <returns></returns>
+		public async Task<Practice[]> GetPractices(Practice practice)
+		{
+			return await SendPost<Practice, Practice[]>(practice, Api.GetPractices);
 		}
 
 		private async Task<TResult> SendPost<T, TResult>(T body, string method)
@@ -54,6 +59,9 @@ namespace Domain
 			var json = JsonSerializer.Serialize(body);
 			var content = new ByteArrayContent(Encoding.UTF8.GetBytes(json));
 			var response = await client.PostAsync($"{Url}/{method}", content).ConfigureAwait(false);
+			if (!response.IsSuccessStatusCode)
+				throw new Exception(response.ToString());
+
 			var ms = new MemoryStream();
 			await response.Content.CopyToAsync(ms);
 			var s = Encoding.UTF8.GetString(ms.ToArray());

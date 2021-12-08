@@ -2,10 +2,9 @@
 
 namespace Domain
 {
-	[Serializable] //надо?
 	public class Practice
 	{
-#pragma warning disable 8618\
+#pragma warning disable 8618
 
 		public string Name { get; set; }
 		public string[] Users { get; set; }
