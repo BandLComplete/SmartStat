@@ -89,6 +89,7 @@ namespace FirstApp
 					tagEvent,
 					friendUsersEvent,
 					//timeOfNotification,
+					AddEventButton
 				}
 			};
 		}
