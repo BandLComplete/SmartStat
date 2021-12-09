@@ -13,7 +13,7 @@ namespace Domain
 		public string Place { get; set; }
 		public string Type { get; set; }
 		public string Description { get; set; }
-		public string Tag { get; set; }
+		public string? Tag { get; set; }
 		public TimeSpan? Notification { get; set; } //todo: Сделать чтобы хотя бы в приложке вылетало
 
 #pragma warning restore 8618

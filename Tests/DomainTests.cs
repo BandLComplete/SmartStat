@@ -30,8 +30,8 @@ namespace Tests
 			(await client.AddPractice(otherPractice)).Should().BeTrue();
 			(await client.GetPractices(new Practice { Date = new DateTime(2021, 5, 16) })).Should()
 				.BeEquivalentTo(new[] { practice, otherPractice });
-			await client.DeletePractice(practice);
-			await client.DeletePractice(otherPractice);
+			(await client.DeletePractice(practice)).Should().BeTrue();
+			(await client.DeletePractice(otherPractice)).Should().BeTrue();
 			(await client.GetPractices(new Practice { Date = new DateTime(2021, 5, 16) })).Should().BeEmpty();
 		}
 

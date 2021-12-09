@@ -21,4 +21,10 @@
         <ProjectReference Include="..\FirstApp\FirstApp\FirstApp.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="smartStat.db">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>

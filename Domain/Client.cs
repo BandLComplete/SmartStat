@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -56,15 +55,13 @@ namespace Domain
 
 		private async Task<TResult> SendPost<T, TResult>(T body, string method)
 		{
-			var json = JsonSerializer.Serialize(body);
-			var content = new ByteArrayContent(Encoding.UTF8.GetBytes(json));
+			var json = JsonSerializer.SerializeToUtf8Bytes(body);
+			var content = new ByteArrayContent(json);
 			var response = await client.PostAsync($"{Url}/{method}", content).ConfigureAwait(false);
+			var bytes = await response.Content.ReadAsByteArrayAsync();
+			var s = Encoding.UTF8.GetString(bytes);
 			if (!response.IsSuccessStatusCode)
-				throw new Exception(response.ToString());
-
-			var ms = new MemoryStream();
-			await response.Content.CopyToAsync(ms);
-			var s = Encoding.UTF8.GetString(ms.ToArray());
+				throw new Exception(s);
 			return JsonSerializer.Deserialize<TResult>(s) ??
 			       throw new NullReferenceException($"Failed to deserialized {s}");
 		}
