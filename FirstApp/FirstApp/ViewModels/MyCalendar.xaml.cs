@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamForms.Controls;
-using FirstApp.Tests;
+using Domain;
+using System.Linq;
 
 namespace FirstApp
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MyCalendar : ContentPage
 	{
-		public StackLayout layout = new StackLayout()
-		{
-			Children = { calendar }
-		};
+		private readonly StackLayout layout;
+
+		private readonly Client client = new Client();
+
 
 		public readonly static Calendar calendar = new Calendar()
 		{
@@ -22,111 +23,78 @@ namespace FirstApp
 			SelectedDate = DateTime.Today
 		};
 
+		public readonly  Button addingButton = new Button()
+		{
+			Text = "Создать событие"
+		};
+
 		public MyCalendar()
 		{
 			InitializeComponent();
 
-			var AddingButton = new Button()
+			layout= new StackLayout()
 			{
-				Text = "Создать событие"
+				Children = { calendar, addingButton }
 			};
 
-			AddingButton.Clicked += AddingButton_Clicked;
-			layout.Children.Add(AddingButton);
-
-
-			//{
-
-			//new Label
-			//{
-			//    Text = "Название тренировки: " + Class1.practies.Name,
-			//},
-			//new Label
-			//{
-			//    //Text = "Время тренировки: " + Class1.practies.Date.Hour+":"+Class1.practies.Date.Minute,
-			//    Text = "Время тренировки: " + Class1.practies.Date.ToString("HH:mm")
-			//},
-			//new Label
-			//{
-			//    Text = "Продолжительность тренировки: " + Class1.practies.Length.ToString(@"hh\:mm")
-			//},
-			//new Label
-			//{
-			//    Text = "Место тренировки: " + Class1.practies.Place,
-			//},
-			//new Label
-			//{
-			//    Text = "Тип тренировки: " + Class1.practies.Type,
-			//},
-			//new Label
-			//{
-			//    Text = "Описание тренировки: " + Class1.practies.Description,
-			//},
-			//new Label
-			//{
-			//    Text = "Тег тренировки: " + Class1.practies.Tag,
-			//},
-
-			//}
-			//};
+			addingButton.Clicked += AddingButton_Clicked;
+			
 
 			Content = layout;
 			calendar.DateClicked += DateClickedEvent;
 		}
 
-		protected void DateClickedEvent(object s, EventArgs a)
+		protected async void  DateClickedEvent(object s, EventArgs a)
 		{
-			if (Class1.practies.Date.Date == calendar.SelectedDate)
-			{
-				var listOfLabels = CreaterNewLabel();
-				foreach (var e in listOfLabels)
-				{
-					layout.Children.Add(e);
-				}
 
-				Content = layout;
+			//layout.Children.Clear();
+			//layout.Children.Add(calendar);
+			//layout.Children.Add(addingButton);
+			var i = layout.Children.Count;
+			while (i>2)
+            {
+				layout.Children.RemoveAt(i);
+				i--;
+            }
+
+			var av = await client.GetPractices(new Practice { Date = calendar.SelectedDate.Value });
+			foreach (var e in av.SelectMany(x=>CreaterNewLabel(x)))
+			{
+				layout.Children.Add(e);
 			}
+			Content = layout;
 		}
 
-		public List<Label> CreaterNewLabel()
+		public IEnumerable<Label> CreaterNewLabel(Practice e)
 		{
-			var listOfLabels = new List<Label>
+			yield return new Label
 			{
-				new Label
-				{
-					Text = "Название тренировки: " + Class1.practies.Name,
-				},
-				new Label
-				{
-					//Text = "Время тренировки: " + Class1.practies.Date.Hour+":"+Class1.practies.Date.Minute,
-					Text = "Время тренировки: " + Class1.practies.Date.ToString("HH:mm")
-				},
-
-				new Label
-				{
-					Text = "Продолжительность тренировки: " + Class1.practies.Length.ToString(@"hh\:mm")
-				},
-
-				new Label
-				{
-					Text = "Место тренировки: " + Class1.practies.Place,
-				},
-
-				new Label
-				{
-					Text = "Тип тренировки: " + Class1.practies.Type,
-				},
-
-				new Label
-				{
-					Text = "Описание тренировки: " + Class1.practies.Description,
-				},
-				new Label
-				{
-					Text = "Тег тренировки: " + Class1.practies.Tag,
-				}
+				Text = "Название тренировки: " + e.Name,
 			};
-			return listOfLabels;
+			yield return new Label
+			{
+				Text = "Время тренировки: " + e.Date.ToString("HH:mm"),
+			};
+			yield return new Label
+			{
+				Text = "Продолжительность тренировки: " + e.Length.ToString(@"hh\:mm"),
+			};
+			yield return new Label
+			{
+				Text = "Место тренировки: " + e.Place,
+			};
+			yield return new Label
+			{
+				Text = "Тип тренировки: " + e.Type,
+			};
+			yield return new Label
+			{
+				Text = "Описание тренировки: " + e.Description,
+			};
+			yield return new Label
+			{
+				Text = "Тег тренировки: " + e.Tag,
+			};		
 		}
 
 		private async void AddingButton_Clicked(object sender, EventArgs e)
