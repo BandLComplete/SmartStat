@@ -13,6 +13,7 @@ namespace FirstApp
 	{
 		public HomeFlyoutPage()
 		{
+			
 			InitializeComponent();
 			FlyoutPage.ListView.ItemSelected += ListView_ItemSelected;
 			//NavigationPage.SetHasBackButton(this, false);
@@ -27,7 +28,7 @@ namespace FirstApp
 			var page = (Page)Activator.CreateInstance(item.TargetType);
 			page.Title = item.Title;
 
-			Detail = new NavigationPage(page);
+			Detail = new NavigationPage(page) {BarBackgroundColor=Color.FromHex("A8E9AF") };
 			IsPresented = false;
 
 			FlyoutPage.ListView.SelectedItem = null;

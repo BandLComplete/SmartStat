@@ -12,17 +12,16 @@ namespace FirstApp
 	{
 		public static readonly Entry login = new Entry()
 		{
-			Placeholder = "Логин",
-			IsTextPredictionEnabled = false
-		};
+            Placeholder = "Логин",
+            IsTextPredictionEnabled = false
+        };
 
 		public MainPage()
 		{
 			InitializeComponent();
-		}
+		
 
-		protected override void OnAppearing()
-		{
+
 			var passward = new Entry()
 			{
 				Placeholder = "Пароль",
@@ -58,9 +57,9 @@ namespace FirstApp
 			Application.Current.MainPage = new HomeFlyoutPage();
 		}
 
-		private async void RegisterButton_Clicked(object sender, EventArgs e)
-		{
-			await Navigation.PushAsync(new RegisterPage());
-		}
+        private async void RegisterButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new RegisterPage());
+        }
 	}
 }

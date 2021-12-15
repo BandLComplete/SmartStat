@@ -38,7 +38,7 @@ namespace FirstApp
 
 		private readonly Entry descriptionEvent = new Entry()
 		{
-			Placeholder = "Введите название тренировки",
+			Placeholder = "Введите описание тренировки",
 			IsTextPredictionEnabled = false
 		};
 

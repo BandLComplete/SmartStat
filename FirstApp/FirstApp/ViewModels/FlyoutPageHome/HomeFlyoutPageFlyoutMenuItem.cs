@@ -10,7 +10,7 @@ namespace FirstApp
 	{
 		public HomeFlyoutPageFlyoutMenuItem()
 		{
-			TargetType = typeof(HomeFlyoutPageFlyoutMenuItem);
+			TargetType = typeof(HomeFlyoutPageFlyoutMenuItem);			
 		}
 
 		public int Id { get; set; }

@@ -33,7 +33,9 @@ namespace FirstApp
 			{
 				MenuItems = new ObservableCollection<HomeFlyoutPageFlyoutMenuItem>(new[]
 				{
-					new HomeFlyoutPageFlyoutMenuItem { Id = 0, Title = "Календарь", TargetType = typeof(MyCalendar) }
+					new HomeFlyoutPageFlyoutMenuItem {Id = 0, Title = "Главная страница", TargetType = typeof(HomeFlyoutPage)},
+					new HomeFlyoutPageFlyoutMenuItem {  Id = 1, Title = "Календарь", TargetType = typeof(MyCalendar) }
+
 				});
 			}
 

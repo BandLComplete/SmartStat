@@ -8,9 +8,10 @@
         <ListView x:Name="MenuItemsListView"
                   SeparatorVisibility="None"
                   HasUnevenRows="true"
-                  ItemsSource="{Binding MenuItems}">
+                  ItemsSource="{Binding MenuItems}"
+                  BackgroundColor="#A8E9AF">
             <ListView.Header>
-                <Grid BackgroundColor="#03A9F4">
+                <Grid BackgroundColor="#A8E9AF">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="*" />
@@ -25,14 +26,14 @@
                     <Label
                         Grid.Column="1"
                         Grid.Row="2"
-                        Text="AppName"
-                        Style="{DynamicResource SubtitleStyle}" />
+                        Text="SmartStat"
+                       />
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
+                        <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand" BackgroundColor="#A8E9AF">
                             <Label VerticalOptions="FillAndExpand"
                                    VerticalTextAlignment="Center"
                                    Text="{Binding Title}"

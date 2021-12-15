@@ -13,6 +13,7 @@ namespace FirstApp
 	{
 		public HomeFlyoutPageDetail()
 		{
+			Title = "SmartStat";
 			InitializeComponent();
 		}
 	}
