@@ -12,7 +12,7 @@ namespace FirstApp
     public partial class MyCalendar : ContentPage
     {
         private readonly StackLayout layout;
-        public ScrollView scrollView;
+        private readonly ScrollView scrollView;
 
 
         private readonly Client client = new Client();
@@ -53,54 +53,37 @@ namespace FirstApp
 
         protected async void DateClickedEvent(object s, EventArgs a)
         {
-
             layout.Children.Clear();
             layout.Children.Add(calendar);
             layout.Children.Add(addingButton);
+            //picker.Items.Clear();
 
-            var av = await client.GetPractices(new Practice { Date = calendar.SelectedDate.Value });
-
-
-            foreach (var e in av.SelectMany(x => CreaterNewLabel(x)))
+            var arrayOfPractices = await client.GetPractices(new Practice { Date = calendar.SelectedDate.Value });
+            for (var i = 0; i < arrayOfPractices.Length; i++)
             {
-                layout.Children.Add(e);
+                var picker = CreaterNewPicker(arrayOfPractices[i]);              
+                picker.Title = picker.Items[0];
+                layout.Children.Add(picker);
             }
-
             Content = scrollView;
         }
 
 
+        
 
-        public IEnumerable<Label> CreaterNewLabel(Practice e)
+
+        public Picker CreaterNewPicker(Practice e)
         {
-            yield return new Label
-            {
-                Text = "Название тренировки: " + e.Name,
-            };
-            yield return new Label
-            {
-                Text = "Время тренировки: " + e.Date.ToString("HH:mm"),
-            };
-            yield return new Label
-            {
-                Text = "Продолжительность тренировки: " + e.Length.ToString(@"hh\:mm"),
-            };
-            yield return new Label
-            {
-                Text = "Место тренировки: " + e.Place,
-            };
-            yield return new Label
-            {
-                Text = "Тип тренировки: " + e.Type,
-            };
-            yield return new Label
-            {
-                Text = "Описание тренировки: " + e.Description,
-            };
-            yield return new Label
-            {
-                Text = "Тег тренировки: " + e.Tag,
-            };
+            var picker = new Picker();
+            picker.Items.Add("Название тренировки: " + e.Name);
+            picker.Items.Add("Время тренировки: " + e.Date.ToString("HH:mm"));
+            picker.Items.Add("Продолжительность тренировки: " + e.Length.ToString(@"hh\:mm"));
+            picker.Items.Add("Место тренировки: " + e.Place);
+            picker.Items.Add("Тип тренировки: " + e.Type);
+            picker.Items.Add("Описание тренировки: " + e.Description);
+            picker.Items.Add("Тег тренировки: " + e.Tag);
+
+            return picker;
         }
 
         private async void AddingButton_Clicked(object sender, EventArgs e)

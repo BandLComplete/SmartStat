@@ -5,7 +5,6 @@ namespace Domain
 	public class Practice
 	{
 #pragma warning disable 8618
-
 		public string Name { get; set; }
 		public string[] Users { get; set; }
 		public DateTime Date { get; set; }

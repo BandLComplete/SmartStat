@@ -105,8 +105,8 @@ namespace FirstApp
 				Type = typeEvent.Text,
 				Description = descriptionEvent.Text,
 				Tag = tagEvent.Text,
-				Users = (MainPage.login.Text + friendUsersEvent.Text).Split(separators,
-					StringSplitOptions.RemoveEmptyEntries)
+				//Users = (MainPage.login.Text + friendUsersEvent.Text).Split(separators,   TODO
+					//StringSplitOptions.RemoveEmptyEntries)
 			};
 
 			await client.AddPractice(practice);

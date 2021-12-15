@@ -1,65 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain;
+using System;
 using Xamarin.Forms;
 
 namespace FirstApp
 {
-	public partial class MainPage : ContentPage
-	{
-		public static readonly Entry login = new Entry()
-		{
+    public partial class MainPage : ContentPage
+    {
+        private readonly Client client = new Client();
+
+        private readonly Entry login = new Entry()
+        {
             Placeholder = "Логин",
             IsTextPredictionEnabled = false
         };
 
-		public MainPage()
-		{
-			InitializeComponent();
-		
+        private readonly Entry passward = new Entry()
+        {
+            Placeholder = "Пароль",
+            IsSpellCheckEnabled = false,
+            IsTextPredictionEnabled = false,
+            IsPassword = true
+        };
+
+        private readonly Button loginButton = new Button()
+        {
+            Text = "Вход"
+        };
+
+        private readonly Button registerButton = new Button()
+        {
+            Text = "Регистрация"
+        };
 
 
-			var passward = new Entry()
-			{
-				Placeholder = "Пароль",
-				IsSpellCheckEnabled = false,
-				IsTextPredictionEnabled = false,
-				IsPassword = true
-			};
+        public MainPage()
+        {
+            InitializeComponent();
 
-			var loginButton = new Button()
-			{
-				Text = "Вход"
-			};
+            registerButton.Clicked += RegisterButton_Clicked;
+            loginButton.Clicked += LoginButton_Clicked;
 
 
-			var registerButton = new Button()
-			{
-				Text = "Регистрация"
-			};
+            Content = new StackLayout
+            {
+                Children = { login, passward, loginButton, registerButton }
+            };
+        }
 
-			registerButton.Clicked += RegisterButton_Clicked;
-			loginButton.Clicked += LoginButton_Clicked;
-
-
-			Content = new StackLayout
-			{
-				Children = { login, passward, loginButton, registerButton }
-			};
-		}
-
-		private void LoginButton_Clicked(object sender, EventArgs e)
-		{
-			//await Navigation.PushAsync(new HomeFlyoutPage());
-			Application.Current.MainPage = new HomeFlyoutPage();
-		}
+        async void LoginButton_Clicked(object sender, EventArgs e)
+        {
+            var user = new User() { Name = login.Text, Password = passward.Text };
+            if (await client.Login(user))
+                Application.Current.MainPage = new HomeFlyoutPage();
+            else
+                await DisplayAlert("Повторите попытку", "Неправильный логин или пароль", "ОК");
+        }
 
         private async void RegisterButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RegisterPage());
         }
-	}
+    }
 }
