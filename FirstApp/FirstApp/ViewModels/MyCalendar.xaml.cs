@@ -21,7 +21,18 @@ namespace FirstApp
         {
             EnableTitleMonthYearView = true,
             StartDay = DayOfWeek.Monday,
-            SelectedDate = DateTime.Today
+            SelectedDate = DateTime.Today,
+            DatesTextColor = Color.FromHex("#009e1d"),
+            TitleLeftArrowTextColor = Color.FromHex("#009e1d"),
+            TitleRightArrowTextColor = Color.FromHex("#009e1d"),
+            SelectedBackgroundColor = Color.FromHex("#040052"),
+            SelectedTextColor = Color.White,
+            SelectedBorderColor = Color.FromHex("#040052"),
+            TitleLabelTextColor = Color.FromHex("#040052")
+
+
+
+
         };
 
         public readonly Button addingButton = new Button()
@@ -32,7 +43,9 @@ namespace FirstApp
         public MyCalendar()
         {
             
-            InitializeComponent();          
+            InitializeComponent();
+
+            Title = "Календарь";
 
             layout = new StackLayout()
             {
@@ -74,7 +87,12 @@ namespace FirstApp
 
         public Picker CreaterNewPicker(Practice e)
         {
-            var picker = new Picker();
+            var picker = new Picker()
+            {
+                TitleColor = Color.FromHex("040052"),
+                TextColor = Color.FromHex("040052"),
+               
+            };
             picker.Items.Add("Название тренировки: " + e.Name);
             picker.Items.Add("Время тренировки: " + e.Date.ToString("HH:mm"));
             picker.Items.Add("Продолжительность тренировки: " + e.Length.ToString(@"hh\:mm"));

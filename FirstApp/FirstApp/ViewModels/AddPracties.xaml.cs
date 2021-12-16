@@ -13,7 +13,7 @@ namespace FirstApp
 
 		private readonly TimePicker timeEndOfEvent = new TimePicker();
 		private readonly TimePicker timePicker = new TimePicker();
-		private static readonly TimePicker timeOfNotification = new TimePicker();
+		//private  readonly TimePicker timeOfNotification = new TimePicker();   Таймер для выбора времени уведомления
 
 
 		private readonly Client client = new Client();
@@ -54,18 +54,17 @@ namespace FirstApp
 			IsTextPredictionEnabled = false
 		};
 
+		private readonly Button addEventButton = new Button()
+		{
+			Text = "Добавить событие"
+
+		};
 
 		public AddPracties()
 		{
 			InitializeComponent();
 
-
-			var AddEventButton = new Button()
-			{
-				Text = "Добавить событие"
-			};
-
-			AddEventButton.Clicked += AddEventButton_Clicked;
+			addEventButton.Clicked += AddEventButton_Clicked;
 
 
 			Content = new StackLayout
@@ -89,7 +88,7 @@ namespace FirstApp
 					tagEvent,
 					friendUsersEvent,
 					//timeOfNotification,
-					AddEventButton
+					addEventButton
 				}
 			};
 		}
@@ -105,8 +104,8 @@ namespace FirstApp
 				Type = typeEvent.Text,
 				Description = descriptionEvent.Text,
 				Tag = tagEvent.Text,
-				//Users = (MainPage.login.Text + friendUsersEvent.Text).Split(separators,   TODO
-					//StringSplitOptions.RemoveEmptyEntries)
+				Users = (MainPage.safelogin + friendUsersEvent.Text).Split(separators,
+					StringSplitOptions.RemoveEmptyEntries)
 			};
 
 			await client.AddPractice(practice);

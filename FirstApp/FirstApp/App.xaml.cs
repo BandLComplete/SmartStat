@@ -7,17 +7,17 @@ namespace FirstApp
 	public partial class App : Application
 	{
 		public App()
-		{
-			InitializeComponent();
-			MainPage = new NavigationPage(new MainPage())
-			{
-				BarBackgroundColor=Color.FromHex("A8E9AF")
-			};
-			//MainPage = new HomeFlyoutPage();
-            //MainPage = new NavigationPage(new MyCalendar()) 
+        {
+            InitializeComponent();
+            //MainPage = new NavigationPage(new MainPage())
+            //{
+            //    BarBackgroundColor = Color.FromHex("#009e1d")
+            //};
+            //MainPage = new NavigationPage(new MyCalendar());
+			MainPage = new AppShell();
         }
 
-		protected override void OnStart()
+        protected override void OnStart()
 		{
 		}
 			

@@ -47,7 +47,7 @@ namespace FirstApp
             {
                 var user = new User() { Name = name.Text, Password = passward.Text };
                 await client.Register(user);
-                Application.Current.MainPage = new HomeFlyoutPage();
+                Application.Current.MainPage = new AppShell();
             }                   
         }
     }

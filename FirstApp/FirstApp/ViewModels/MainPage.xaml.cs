@@ -8,6 +8,8 @@ namespace FirstApp
     {
         private readonly Client client = new Client();
 
+        public static string safelogin;
+
         private readonly Entry login = new Entry()
         {
             Placeholder = "Логин",
@@ -35,6 +37,7 @@ namespace FirstApp
 
         public MainPage()
         {
+            
             InitializeComponent();
 
             registerButton.Clicked += RegisterButton_Clicked;
@@ -50,8 +53,9 @@ namespace FirstApp
         async void LoginButton_Clicked(object sender, EventArgs e)
         {
             var user = new User() { Name = login.Text, Password = passward.Text };
+            safelogin = login.Text;
             if (await client.Login(user))
-                Application.Current.MainPage = new HomeFlyoutPage();
+                Application.Current.MainPage = new AppShell();
             else
                 await DisplayAlert("Повторите попытку", "Неправильный логин или пароль", "ОК");
         }
