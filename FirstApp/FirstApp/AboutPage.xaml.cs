@@ -5,11 +5,11 @@ using Xamarin.Forms.Xaml;
 
 namespace FirstApp
 {
-    public partial class AboutPage : ContentPage
-    {
-        public AboutPage()
-        {
-            InitializeComponent();
-        }
-    }
+	public partial class AboutPage : ContentPage
+	{
+		public AboutPage()
+		{
+			InitializeComponent();
+		}
+	}
 }

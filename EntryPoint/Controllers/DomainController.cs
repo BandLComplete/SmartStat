@@ -26,6 +26,12 @@ namespace EntryPoint.Controllers
 			return JsonSerializer.Serialize(Login(user));
 		}
 
+		[HttpPost, Route("LoginWeb")]
+		public bool Login(string name, string password)
+		{
+			return Login(new User { Name = name, Password = password });
+		}
+
 		private bool Login(User user)
 		{
 			var dbUser = users.Find(user.Name);
@@ -35,18 +41,29 @@ namespace EntryPoint.Controllers
 		[HttpPost, Route(Api.Register)]
 		public string Register()
 		{
-			return JsonSerializer.Serialize(UpdateUser(0));
+			return JsonSerializer.Serialize(UpdateUser(ReadBody<User>(), 0));
+		}
+
+		[HttpPost, Route("RegisterWeb")]
+		public bool Register(string name, string password)
+		{
+			return UpdateUser(new User { Name = name, Password = password }, 0);
 		}
 
 		[HttpPost, Route(Api.DeleteUser)]
 		public string DeleteUser()
 		{
-			return JsonSerializer.Serialize(UpdateUser(1));
+			return JsonSerializer.Serialize(UpdateUser(ReadBody<User>(), 1));
 		}
 
-		private bool UpdateUser(int action)
+		[HttpPost, Route("DeleteUserWeb")]
+		public bool DeleteUser(string name, string password)
 		{
-			var user = ReadBody<User>();
+			return UpdateUser(new User { Name = name, Password = password }, 1);
+		}
+
+		private bool UpdateUser(User user, int action)
+		{
 			var userDb = users.Find(user.Name);
 			switch (action)
 			{

@@ -58,16 +58,21 @@ namespace Domain
 			var json = JsonSerializer.SerializeToUtf8Bytes(body);
 			var content = new ByteArrayContent(json);
 			var response = await client.PostAsync($"{Url}/{method}", content).ConfigureAwait(false);
+			return await ReadBody<TResult>(response);
+		}
+
+		protected static async Task<T> ReadBody<T>(HttpResponseMessage response)
+		{
 			var bytes = await response.Content.ReadAsByteArrayAsync();
 			var s = Encoding.UTF8.GetString(bytes);
 			if (!response.IsSuccessStatusCode)
 				throw new Exception(s);
-			return JsonSerializer.Deserialize<TResult>(s) ??
+			return JsonSerializer.Deserialize<T>(s) ??
 			       throw new NullReferenceException($"Failed to deserialized {s}");
 		}
 
 		protected virtual string Url => "http://SmartStat.somee.com";
 
-		private readonly HttpClient client;
+		protected readonly HttpClient client;
 	}
 }

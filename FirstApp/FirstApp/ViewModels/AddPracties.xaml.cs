@@ -12,6 +12,7 @@ namespace FirstApp
 
 
 		private readonly TimePicker timeEndOfEvent = new TimePicker();
+
 		private readonly TimePicker timePicker = new TimePicker();
 		//private  readonly TimePicker timeOfNotification = new TimePicker();   Таймер для выбора времени уведомления
 
@@ -57,7 +58,6 @@ namespace FirstApp
 		private readonly Button addEventButton = new Button()
 		{
 			Text = "Добавить событие"
-
 		};
 
 		public AddPracties()

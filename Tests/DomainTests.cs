@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Domain;
-using FirstApp.Service;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -18,6 +17,17 @@ namespace Tests
 			(await client.Login(user)).Should().BeTrue();
 			(await client.DeleteUser(user)).Should().BeTrue();
 			(await client.Login(user)).Should().BeFalse();
+		}
+
+		[Test]
+		public async Task UserTestWeb()
+		{
+			await client.DeleteUser(user.Name, user.Password);
+			(await client.Login(user.Name, user.Password)).Should().BeFalse();
+			(await client.Register(user.Name, user.Password)).Should().BeTrue();
+			(await client.Login(user.Name, user.Password)).Should().BeTrue();
+			(await client.DeleteUser(user.Name, user.Password)).Should().BeTrue();
+			(await client.Login(user.Name, user.Password)).Should().BeFalse();
 		}
 
 		[Test]

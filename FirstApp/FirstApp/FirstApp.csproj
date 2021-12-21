@@ -11,17 +11,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
-        <PackageReference Include="XamForms.Controls.Calendar" Version="1.1.1" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196"/>
+        <PackageReference Include="Xamarin.Essentials" Version="1.7.0"/>
+        <PackageReference Include="XamForms.Controls.Calendar" Version="1.1.1"/>
     </ItemGroup>
 
     <ItemGroup>
         <EmbeddedResource Update="AboutPage.xaml">
-          <Generator>MSBuild:Compile</Generator>
+            <Generator>MSBuild:Compile</Generator>
         </EmbeddedResource>
         <EmbeddedResource Update="AppShell.xaml">
-          <Generator>MSBuild:Compile</Generator>
+            <Generator>MSBuild:Compile</Generator>
         </EmbeddedResource>
         <EmbeddedResource Update="Pages\AddPracties.xaml">
             <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -30,11 +30,11 @@
             <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
         <EmbeddedResource Update="Pages\RegisterPage.xaml">
-          <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Domain\Domain.csproj" />
+        <ProjectReference Include="..\..\Domain\Domain.csproj"/>
     </ItemGroup>
 </Project>
