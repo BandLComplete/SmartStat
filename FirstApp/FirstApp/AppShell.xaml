@@ -74,5 +74,8 @@
     <FlyoutItem Title="Календарь" Icon="icon_calendar.png">
         <ShellContent Route="MyCalendar" ContentTemplate="{DataTemplate local:MyCalendar}" />
     </FlyoutItem>
+    <FlyoutItem Title="Статистика" Icon="icon_stats.png">
+        <ShellContent Route="StatPage" ContentTemplate="{DataTemplate local:StatPage}" />
+    </FlyoutItem>
 
 </Shell>
