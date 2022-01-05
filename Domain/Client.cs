@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -6,73 +7,119 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-	public class Client
-	{
-		public Client()
-		{
-			var clientHandler = new HttpClientHandler
-			{
-				ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-			};
+    public class Client
+    {
+        protected readonly HttpClient client;
 
-			client = new HttpClient(clientHandler);
-		}
+        public Client()
+        {
+            var clientHandler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
 
-		public async Task<bool> Login(User user)
-		{
-			return await SendPost<User, bool>(user, Api.Login);
-		}
+            client = new HttpClient(clientHandler);
+        }
 
-		public async Task<bool> Register(User user)
-		{
-			return await SendPost<User, bool>(user, Api.Register);
-		}
+        protected virtual string Url => "http://SmartStat.somee.com";
 
-		public async Task<bool> DeleteUser(User user)
-		{
-			return await SendPost<User, bool>(user, Api.DeleteUser);
-		}
+        public async Task<bool> Login(User user)
+        {
+            return await SendPost<User, bool>(user, Api.Login);
+        }
 
-		public async Task<bool> AddPractice(Practice practice)
-		{
-			return await SendPost<Practice, bool>(practice, Api.AddPractice);
-		}
+        public async Task<bool> Register(User user)
+        {
+            return await SendPost<User, bool>(user, Api.Register);
+        }
 
-		public async Task<bool> DeletePractice(Practice practice)
-		{
-			return await SendPost<Practice, bool>(practice, Api.DeletePractice);
-		}
+        public async Task<bool> DeleteUser(User user)
+        {
+            return await SendPost<User, bool>(user, Api.DeleteUser);
+        }
 
-		/// <summary>
-		/// Поиск тренировок
-		/// </summary>
-		/// <param name="practice">Сюда пихать нужные значения для поиска</param>
-		/// <returns></returns>
-		public async Task<Practice[]> GetPractices(Practice practice)
-		{
-			return await SendPost<Practice, Practice[]>(practice, Api.GetPractices);
-		}
+        public async Task<bool> AddPractice(Practice practice)
+        {
+            return await SendPost<Practice, bool>(practice, Api.AddPractice);
+        }
 
-		private async Task<TResult> SendPost<T, TResult>(T body, string method)
-		{
-			var json = JsonSerializer.SerializeToUtf8Bytes(body);
-			var content = new ByteArrayContent(json);
-			var response = await client.PostAsync($"{Url}/{method}", content).ConfigureAwait(false);
-			return await ReadBody<TResult>(response);
-		}
+        public async Task<bool> DeletePractice(Practice practice)
+        {
+            return await SendPost<Practice, bool>(practice, Api.DeletePractice);
+        }
 
-		protected static async Task<T> ReadBody<T>(HttpResponseMessage response)
-		{
-			var bytes = await response.Content.ReadAsByteArrayAsync();
-			var s = Encoding.UTF8.GetString(bytes);
-			if (!response.IsSuccessStatusCode)
-				throw new Exception(s);
-			return JsonSerializer.Deserialize<T>(s) ??
-			       throw new NullReferenceException($"Failed to deserialized {s}");
-		}
+        /// <summary>
+        ///     Поиск тренировок
+        /// </summary>
+        /// <param name="practice">Сюда пихать нужные значения для поиска. Все Users должны учавстовать в тренировке</param>
+        /// <returns></returns>
+        public async Task<Practice[]> GetPractices(Practice practice)
+        {
+            return await SendPost<Practice, Practice[]>(practice, Api.GetPractices);
+        }
 
-		protected virtual string Url => "http://SmartStat.somee.com";
+        /// <summary>
+        /// Удалять можно на похуй - если нет, то вернёт true. Добавление кидает ошибку, если уже есть. Обновление кидает ошибку, если ещё нет.
+        /// </summary>
+        /// <param name="stat">Для добавления и обновления должны быть ключевые значения указаны (User, Date, Name)</param>
+        /// <param name="dbAction"></param>
+        /// <returns></returns>
+        public async Task<bool> PatchStat(Stat stat, DbAction dbAction)
+        {
+            var queries = new Dictionary<string, string>
+            {
+                ["dbAction"] = dbAction.ToString()
+            };
+            return await SendPost<Stat, bool>(stat, Api.PatchStat, queries);
+        }
 
-		protected readonly HttpClient client;
-	}
+        /// <summary>
+        ///     Поиск тренировок
+        /// </summary>
+        /// <param name="stat">User'a обязательно указывать. Дату и название по желанию</param>
+        /// <returns></returns>
+        public async Task<Stat[]> GetStats(Stat stat)
+        {
+            return await SendPost<Stat, Stat[]>(stat, Api.GetStats);
+        }
+
+        private async Task<TResult> SendPost<T, TResult>(T body, string method,
+            Dictionary<string, string>? queries = null)
+        {
+            var json = JsonSerializer.SerializeToUtf8Bytes(body);
+            var content = new ByteArrayContent(json);
+            var url = AddQueries($"{Url}/{method}", queries);
+            var response = await client.PostAsync(url, content).ConfigureAwait(false);
+            return await ReadBody<TResult>(response);
+        }
+
+        protected static string AddQueries(string url, Dictionary<string, string>? queries)
+        {
+            if (queries == null)
+                return url;
+
+            var builder = new StringBuilder(url);
+            var isFirst = true;
+            foreach (var query in queries)
+            {
+                builder.Append(isFirst ? "?" : "&");
+                isFirst = false;
+                builder.Append(query.Key);
+                builder.Append('=');
+                builder.Append(query.Value);
+            }
+
+            return builder.ToString();
+        }
+
+        protected static async Task<T> ReadBody<T>(HttpResponseMessage response)
+        {
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            var s = Encoding.UTF8.GetString(bytes);
+            if (!response.IsSuccessStatusCode)
+                throw new Exception(s);
+            return JsonSerializer.Deserialize<T>(s) ??
+                   throw new NullReferenceException($"Failed to deserialized {s}");
+        }
+    }
 }

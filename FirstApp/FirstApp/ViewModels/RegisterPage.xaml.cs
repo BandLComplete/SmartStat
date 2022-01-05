@@ -1,54 +1,56 @@
-﻿using Domain;
-using System;
+﻿using System;
+using Domain;
 using Xamarin.Forms;
 
 namespace FirstApp
 {
-	public partial class RegisterPage : ContentPage
-	{
-		private readonly Client client = new Client();
+    public class RegisterPage : ContentPage
+    {
+        private readonly Client client = new Client();
 
-		private Entry name = new Entry()
-		{
-			Placeholder = "Ввеидте логин"
-		};
+        private readonly Button asseptRegister = new Button
+        {
+            Text = "Зарегестрироваться"
+        };
 
-		private Entry passward = new Entry()
-		{
-			Placeholder = "Ввеидте пароль"
-		};
+        private readonly Entry name = new Entry
+        {
+            Placeholder = "Ввеидте логин"
+        };
 
-
-		private Entry repassward = new Entry()
-		{
-			Placeholder = "Повторите пароль"
-		};
-
-		private Button asseptRegister = new Button()
-		{
-			Text = "Зарегестрироваться"
-		};
+        private readonly Entry passward = new Entry
+        {
+            Placeholder = "Ввеидте пароль"
+        };
 
 
-		public RegisterPage()
-		{
-			Content = new StackLayout
-			{
-				Children = { name, passward, repassward, asseptRegister }
-			};
-			asseptRegister.Clicked += asseptRegister_Clicked;
-		}
+        private readonly Entry repassward = new Entry
+        {
+            Placeholder = "Повторите пароль"
+        };
 
-		async void asseptRegister_Clicked(object sender, EventArgs e)
-		{
-			if (passward.Text != repassward.Text | name.Text == null | passward.Text == null)
-				await DisplayAlert("Повторите попытку", "Пароли не совпадают", "ОК");
-			else
-			{
-				var user = new User() { Name = name.Text, Password = passward.Text };
-				await client.Register(user);
-				Application.Current.MainPage = new AppShell();
-			}
-		}
-	}
+
+        public RegisterPage()
+        {
+            Content = new StackLayout
+            {
+                Children = { name, passward, repassward, asseptRegister }
+            };
+            asseptRegister.Clicked += asseptRegister_Clicked;
+        }
+
+        private async void asseptRegister_Clicked(object sender, EventArgs e)
+        {
+            if ((passward.Text != repassward.Text) | (name.Text == null) | (passward.Text == null))
+            {
+                await DisplayAlert("Повторите попытку", "Пароли не совпадают", "ОК");
+            }
+            else
+            {
+                var user = new User { Name = name.Text, Password = passward.Text };
+                await client.Register(user);
+                Application.Current.MainPage = new AppShell();
+            }
+        }
+    }
 }

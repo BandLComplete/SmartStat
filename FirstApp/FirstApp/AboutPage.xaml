@@ -7,7 +7,6 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -18,8 +17,7 @@
         </Grid.RowDefinitions>
         <StackLayout BackgroundColor="#A8E9AF" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                </ContentView>
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand" />
             </StackLayout>
         </StackLayout>
         <ScrollView Grid.Row="1">

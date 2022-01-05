@@ -1,15 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace FirstApp
 {
-	public partial class AboutPage : ContentPage
-	{
-		public AboutPage()
-		{
-			InitializeComponent();
-		}
-	}
+    public partial class AboutPage : ContentPage
+    {
+        public AboutPage()
+        {
+            InitializeComponent();
+        }
+    }
 }

@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Domain;
 using EntryPoint.Database;
 using Microsoft.AspNetCore.Mvc;
@@ -10,132 +12,182 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EntryPoint.Controllers
 {
-	public class DomainController : Controller
-	{
-		public DomainController(Context context)
-		{
-			this.context = context;
-			users = context.Users;
-			practices = context.Practices;
-		}
+    public class DomainController : Controller
+    {
+        private readonly Context context;
+        private readonly DbSet<PracticeDb> practices;
+        private readonly DbSet<StatDb> stats;
+        private readonly DbSet<UserDb> users;
 
-		[HttpPost, Route(Api.Login)]
-		public string Login()
-		{
-			var user = ReadBody<User>();
-			return JsonSerializer.Serialize(Login(user));
-		}
+        public DomainController(Context context)
+        {
+            this.context = context;
+            users = context.Users;
+            practices = context.Practices;
+            stats = context.Stats;
+        }
 
-		[HttpPost, Route("LoginWeb")]
-		public bool Login(string name, string password)
-		{
-			return Login(new User { Name = name, Password = password });
-		}
+        [HttpPost]
+        [Route(Api.Login)]
+        public async Task<string> Login()
+        {
+            var user = await ReadBody<User>();
+            return JsonSerializer.Serialize(Login(user));
+        }
 
-		private bool Login(User user)
-		{
-			var dbUser = users.Find(user.Name);
-			return dbUser != null && dbUser.Password == user.Password;
-		}
+        [HttpPost]
+        [Route("LoginWeb")]
+        public bool Login(string name, string password)
+        {
+            return Login(new User { Name = name, Password = password });
+        }
 
-		[HttpPost, Route(Api.Register)]
-		public string Register()
-		{
-			return JsonSerializer.Serialize(UpdateUser(ReadBody<User>(), 0));
-		}
+        private bool Login(User user)
+        {
+            var dbUser = users.Find(user.Name);
+            return dbUser != null && dbUser.Password == user.Password;
+        }
 
-		[HttpPost, Route("RegisterWeb")]
-		public bool Register(string name, string password)
-		{
-			return UpdateUser(new User { Name = name, Password = password }, 0);
-		}
+        [HttpPost]
+        [Route(Api.Register)]
+        public async Task<string> Register()
+        {
+            var user = await ReadBody<User>();
+            return JsonSerializer.Serialize(UpdateUser(user, 0));
+        }
 
-		[HttpPost, Route(Api.DeleteUser)]
-		public string DeleteUser()
-		{
-			return JsonSerializer.Serialize(UpdateUser(ReadBody<User>(), 1));
-		}
+        [HttpPost]
+        [Route("RegisterWeb")]
+        public bool Register(string name, string password)
+        {
+            return UpdateUser(new User { Name = name, Password = password }, 0);
+        }
 
-		[HttpPost, Route("DeleteUserWeb")]
-		public bool DeleteUser(string name, string password)
-		{
-			return UpdateUser(new User { Name = name, Password = password }, 1);
-		}
+        [HttpPost]
+        [Route(Api.DeleteUser)]
+        public async Task<string> DeleteUser()
+        {
+            var user = await ReadBody<User>();
+            return JsonSerializer.Serialize(UpdateUser(user, 1));
+        }
 
-		private bool UpdateUser(User user, int action)
-		{
-			var userDb = users.Find(user.Name);
-			switch (action)
-			{
-				case 0:
-					if (userDb != null)
-						return false;
-					users.Add(user.ToDb());
-					break;
-				case 1:
-					if (userDb == null)
-						return true;
-					users.Remove(userDb);
-					break;
-			}
+        [HttpPost]
+        [Route("DeleteUserWeb")]
+        public bool DeleteUser(string name, string password)
+        {
+            return UpdateUser(new User { Name = name, Password = password }, 1);
+        }
 
-			return context.SaveChanges() == 1;
-		}
+        private bool UpdateUser(User user, int action)
+        {
+            var userDb = users.Find(user.Name);
+            switch (action)
+            {
+                case 0:
+                    if (userDb != null)
+                        return false;
+                    users.Add(user.ToDb());
+                    break;
+                case 1:
+                    if (userDb == null)
+                        return true;
+                    users.Remove(userDb);
+                    break;
+            }
 
-		[HttpPost, Route(Api.AddPractice)]
-		public string AddPractice()
-		{
-			var practice = ReadBody<Practice>().ToDb();
-			practices.Add(practice);
-			var result = context.SaveChanges() == 1;
-			return JsonSerializer.Serialize(result);
-		}
+            return context.SaveChanges() == 1;
+        }
 
-		[HttpPost, Route(Api.DeletePractice)]
-		public string DeletePractice()
-		{
-			var practice = ReadBody<Practice>();
-			return JsonSerializer.Serialize(DeletePractice(practice));
-		}
+        [HttpPost]
+        [Route(Api.AddPractice)]
+        public async Task<string> AddPractice()
+        {
+            var practice = await ReadBody<Practice>();
+            practices.Add(practice.ToDb());
+            var result = await context.SaveChangesAsync() == 1;
+            return JsonSerializer.Serialize(result);
+        }
 
-		private bool DeletePractice(Practice practice)
-		{
-			var db = practice.ToDb();
-			var existing = practices.FirstOrDefault(p =>
-				p.Name == practice.Name && p.Date == practice.Date && p.Users == db.Users);
-			if (existing == null)
-				return true;
-			practices.Remove(existing);
-			return context.SaveChanges() == 1;
-		}
+        [HttpPost]
+        [Route(Api.DeletePractice)]
+        public async Task<string> DeletePractice()
+        {
+            var practice = await ReadBody<Practice>();
+            return JsonSerializer.Serialize(DeletePractice(practice));
+        }
 
-		[HttpPost, Route(Api.GetPractices)]
-		public string GetPractices()
-		{
-			var practice = ReadBody<Practice>();
+        private bool DeletePractice(Practice practice)
+        {
+            var db = practice.ToDb();
+            var existing = practices.Where(p =>
+                p.Name == practice.Name && p.Date.Date == practice.Date.Date && p.Users == db.Users);
+            practices.RemoveRange(existing);
+            return context.SaveChanges() == 1;
+        }
 
-			var result = practices.Where(p => p.Date.Date == practice.Date.Date).Select(p => p.ToModel()).ToArray();
-			return JsonSerializer.Serialize(result);
-		}
+        [HttpPost]
+        [Route(Api.GetPractices)]
+        public async Task<string> GetPractices()
+        {
+            var practice = await ReadBody<Practice>();
 
-		public PracticeDb[] GetPractices(User user, DateTime? exclusiveStart, DateTime? inclusiveEnd)
-		{
-			return practices.Where(p => p.Users.Contains(user.Name) &&
-			                            (exclusiveStart == null || p.Date > exclusiveStart) &&
-			                            (inclusiveEnd == null || p.Date <= inclusiveEnd))
-				.ToArray();
-		}
+            var result = practices.Where(p => p.Date.Date == practice.Date.Date)
+                .AsEnumerable()
+                .Select(p => p.ToModel())
+                .Where(p => practice.Users == null || practice.Users.All(u => p.Users!.Contains(u)))
+                .ToArray();
+            return JsonSerializer.Serialize(result);
+        }
 
-		private T ReadBody<T>()
-		{
-			var ms = new MemoryStream();
-			Request.Body.CopyToAsync(ms).GetAwaiter().GetResult();
-			var s = Encoding.UTF8.GetString(ms.ToArray());
-			return JsonSerializer.Deserialize<T>(s) ?? throw new NullReferenceException($"Failed to deserialized {s}");
-		}
+        [HttpPost]
+        [Route(Api.PatchStat)]
+        public async Task<string> PatchStat(DbAction dbAction)
+        {
+            var stat = await ReadBody<Stat>();
 
-		private readonly Context context;
-		private readonly DbSet<UserDb> users;
-		private readonly DbSet<PracticeDb> practices;
-	}
+            switch (dbAction)
+            {
+                case DbAction.Add:
+                    stats.Add(stat.ToDb());
+                    break;
+                case DbAction.Update:
+                    stats.Update(stat.ToDb());
+                    break;
+                case DbAction.Delete:
+                    var existing = GetStats(stat).ToArray();
+                    if (!existing.Any())
+                        return JsonSerializer.Serialize(true);
+                    stats.RemoveRange(existing);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(dbAction), dbAction, null);
+            }
+
+            var result = await context.SaveChangesAsync();
+            return JsonSerializer.Serialize(result == 1);
+        }
+
+        [HttpPost]
+        [Route(Api.GetStats)]
+        public async Task<string> GetStats()
+        {
+            var stat = await ReadBody<Stat>();
+
+            var result = GetStats(stat).Select(s => s.ToModel()).ToArray();
+            return JsonSerializer.Serialize(result);
+        }
+
+        private IEnumerable<StatDb> GetStats(Stat stat)
+        {
+            return stats.Where(s => s.User == stat.User && (stat.Date == default || stat.Date.Date == s.Date.Date) && (stat.Name == null || stat.Name == s.Name));
+        }
+
+        private async Task<T> ReadBody<T>()
+        {
+            var ms = new MemoryStream();
+            await Request.Body.CopyToAsync(ms);
+            var s = Encoding.UTF8.GetString(ms.ToArray());
+            return JsonSerializer.Deserialize<T>(s) ?? throw new NullReferenceException($"Failed to deserialized {s}");
+        }
+    }
 }

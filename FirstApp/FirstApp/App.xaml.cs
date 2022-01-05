@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace FirstApp
 {
@@ -17,16 +15,16 @@ namespace FirstApp
             //MainPage = new AppShell();
         }
 
-		protected override void OnStart()
-		{
-		}
+        protected override void OnStart()
+        {
+        }
 
-		protected override void OnSleep()
-		{
-		}
+        protected override void OnSleep()
+        {
+        }
 
-		protected override void OnResume()
-		{
-		}
-	}
+        protected override void OnResume()
+        {
+        }
+    }
 }
