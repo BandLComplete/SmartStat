@@ -25,52 +25,46 @@ namespace EntryPoint.Controllers
             stats = context.Stats;
         }
 
-        [HttpPost]
-        [Route(Api.Login)]
+        [HttpPost(Api.Login)]
         public async Task<string> Login()
         {
             var user = await ReadBody<User>();
-            return JsonSerializer.Serialize(Login(user));
+            return JsonSerializer.Serialize(await Login(user));
         }
 
-        [HttpPost]
-        [Route("LoginWeb")]
-        public bool Login(string name, string password)
+        [HttpPost("LoginWeb")]
+        public async Task<bool> Login(string name, string password)
         {
-            return Login(new User { Name = name, Password = password });
+            return await Login(new User { Name = name, Password = password });
         }
 
-        private bool Login(User user)
+        private async Task<bool> Login(User user)
         {
-            var dbUser = users.Find(user.Name);
+            var dbUser = await users.FindAsync(user.Name);
             return dbUser != null && dbUser.Password == user.Password;
         }
 
-        [HttpPost]
-        [Route(Api.Register)]
+        [HttpPost(Api.Register)]
         public async Task<string> Register()
         {
             var user = await ReadBody<User>();
             return JsonSerializer.Serialize(UpdateUser(user, 0));
         }
 
-        [HttpPost]
-        [Route("RegisterWeb")]
+        [HttpPost("RegisterWeb")]
         public bool Register(string name, string password)
         {
             return UpdateUser(new User { Name = name, Password = password }, 0);
         }
 
-        [HttpPost]
-        [Route(Api.DeleteUser)]
+        [HttpPost(Api.DeleteUser)]
         public async Task<string> DeleteUser()
         {
             var user = await ReadBody<User>();
             return JsonSerializer.Serialize(UpdateUser(user, 1));
         }
 
-        [HttpPost]
-        [Route("DeleteUserWeb")]
+        [HttpPost("DeleteUserWeb")]
         public bool DeleteUser(string name, string password)
         {
             return UpdateUser(new User { Name = name, Password = password }, 1);
@@ -96,8 +90,7 @@ namespace EntryPoint.Controllers
             return context.SaveChanges() == 1;
         }
 
-        [HttpPost]
-        [Route(Api.AddPractice)]
+        [HttpPost(Api.AddPractice)]
         public async Task<string> AddPractice()
         {
             var practice = await ReadBody<Practice>();
@@ -106,8 +99,7 @@ namespace EntryPoint.Controllers
             return JsonSerializer.Serialize(result);
         }
 
-        [HttpPost]
-        [Route(Api.DeletePractice)]
+        [HttpPost(Api.DeletePractice)]
         public async Task<string> DeletePractice()
         {
             var practice = await ReadBody<Practice>();
@@ -123,8 +115,7 @@ namespace EntryPoint.Controllers
             return context.SaveChanges() == 1;
         }
 
-        [HttpPost]
-        [Route(Api.GetPractices)]
+        [HttpPost(Api.GetPractices)]
         public async Task<string> GetPractices()
         {
             var practice = await ReadBody<Practice>();
@@ -137,8 +128,7 @@ namespace EntryPoint.Controllers
             return JsonSerializer.Serialize(result);
         }
 
-        [HttpPost]
-        [Route(Api.PatchStat)]
+        [HttpPost(Api.PatchStat)]
         public async Task<string> PatchStat(DbAction dbAction)
         {
             var stat = await ReadBody<Stat>();
@@ -165,8 +155,7 @@ namespace EntryPoint.Controllers
             return JsonSerializer.Serialize(result == 1);
         }
 
-        [HttpPost]
-        [Route(Api.GetStats)]
+        [HttpPost(Api.GetStats)]
         public async Task<string> GetStats()
         {
             var stat = await ReadBody<Stat>();

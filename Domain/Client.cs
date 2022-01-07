@@ -114,12 +114,10 @@ namespace Domain
 
         protected static async Task<T> ReadBody<T>(HttpResponseMessage response)
         {
-            var bytes = await response.Content.ReadAsByteArrayAsync();
-            var s = Encoding.UTF8.GetString(bytes);
             if (!response.IsSuccessStatusCode)
-                throw new Exception(s);
-            return JsonSerializer.Deserialize<T>(s) ??
-                   throw new NullReferenceException($"Failed to deserialized {s}");
+                throw new Exception("Request failed");
+            return await JsonSerializer.DeserializeAsync<T>(await response.Content.ReadAsStreamAsync()) ??
+                   throw new NullReferenceException();
         }
     }
 }
