@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Domain;
@@ -184,10 +182,8 @@ namespace EntryPoint.Controllers
 
         private async Task<T> ReadBody<T>()
         {
-            var ms = new MemoryStream();
-            await Request.Body.CopyToAsync(ms);
-            var s = Encoding.UTF8.GetString(ms.ToArray());
-            return JsonSerializer.Deserialize<T>(s) ?? throw new NullReferenceException($"Failed to deserialized {s}");
+            return await JsonSerializer.DeserializeAsync<T>(Request.BodyReader.AsStream()) 
+                   ?? throw new NullReferenceException();
         }
     }
 }

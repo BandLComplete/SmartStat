@@ -52,7 +52,7 @@ namespace EntryPoint
             return new PracticeDb
             {
                 Name = practice.Name,
-                Users = string.Join(separator, practice.Users.OrderBy(u => u)),
+                Users = string.Join(separator, practice.Users!.OrderBy(u => u)),
                 Date = practice.Date,
                 Length = practice.Length,
                 Place = practice.Place,
