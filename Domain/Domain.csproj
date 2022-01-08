@@ -4,10 +4,12 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>8</LangVersion>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <OutputPath>bin\</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Text.Json" Version="6.0.0"/>
+        <PackageReference Include="System.Text.Json" Version="6.0.1" />
     </ItemGroup>
 
 </Project>
