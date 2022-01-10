@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿namespace EntryPoint.Controllers;
 
-namespace EntryPoint.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
-    }
+	public IActionResult Index()
+	{
+		return View();
+	}
 }

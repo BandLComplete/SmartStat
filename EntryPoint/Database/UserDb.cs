@@ -1,15 +1,12 @@
-using System.ComponentModel.DataAnnotations;
+namespace EntryPoint.Database;
 
-namespace EntryPoint.Database
+public class UserDb
 {
-    public class UserDb
-    {
 #pragma warning disable 8618
 
-        [Key] public string Name { get; set; }
+	[Key] public string Name { get; set; }
 
-        public string Password { get; set; }
+	public string Password { get; set; }
 
 #pragma warning restore 8618
-    }
 }
