@@ -17,5 +17,11 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0-preview-20211130-02" />
         <PackageReference Include="NUnit" Version="3.13.2" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <Using Include="Domain" />
+        <Using Include="FluentAssertions" />
+        <Using Include="NUnit.Framework" />
+    </ItemGroup>
 
 </Project>
