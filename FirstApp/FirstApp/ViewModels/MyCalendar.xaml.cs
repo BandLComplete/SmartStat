@@ -63,8 +63,9 @@ namespace FirstApp
             layout.Children.Add(addingButton);
             //picker.Items.Clear();
 
-            var arrayOfPractices = await client.GetPractices(new Practice { Date = Calendar.SelectedDate.Value,
-                                                                                    Users = new []{MainPage.userName}});
+
+            var arrayOfPractices = await client.GetPractices(new Practice {Date = Calendar.SelectedDate.Value,});
+                                                                                    //Users = new []{MainPage.userName}});
             foreach (var t in arrayOfPractices)
             {
                 var picker = CreaterNewPicker(t);
