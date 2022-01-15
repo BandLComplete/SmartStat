@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DebugType>portable</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Syncfusion.Xamarin.Core" Version="19.4.0.41" />
+        <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.4.0.41" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+        <PackageReference Include="XamForms.Controls.Calendar" Version="1.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="AboutPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="AppShell.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Pages\AddPracties.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Pages\MyCalendar.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Pages\RegisterPage.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="StatPage.xaml">
+          <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Mono.Android">
+        <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="AddStat.xaml.cs">
+        <DependentUpon>AddStat.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+</Project>

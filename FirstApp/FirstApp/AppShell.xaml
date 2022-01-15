@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:FirstApp"
+       Title="FirstApp"
+       x:Class="FirstApp.AppShell">
+
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarTitleColor" Value="White" />
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+
+        </ResourceDictionary>
+    </Shell.Resources>
+
+
+    <FlyoutItem Title="Главная страница" Icon="icon_Main.png">
+        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Календарь" Icon="icon_calendar.png">
+        <ShellContent Route="MyCalendar" ContentTemplate="{DataTemplate local:MyCalendar}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Статистика" Icon="icon_stats.png">
+        <ShellContent Route="StatPage" ContentTemplate="{DataTemplate local:StatPage}" />
+    </FlyoutItem>
+
+</Shell>
