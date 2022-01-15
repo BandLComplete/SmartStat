@@ -5,15 +5,9 @@ VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntryPoint", "EntryPoint\EntryPoint.csproj", "{82D7949B-2C36-4A72-AD54-B98CCBCF4756}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstApp", "FirstApp\FirstApp\FirstApp.csproj", "{5FE9EBD4-2CFB-4B84-8BD0-971A021D7E1E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstApp.Android", "FirstApp\FirstApp.Android\FirstApp.Android.csproj", "{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{18F60DE5-F74A-4F4F-8160-5F82B528D884}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{2AB18FBA-E3F3-4FD9-8366-BDCAE7D9BB5E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{23F89D2E-4F7C-4FF8-8CF0-4F429DA707A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,16 +19,6 @@ Global
 		{82D7949B-2C36-4A72-AD54-B98CCBCF4756}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82D7949B-2C36-4A72-AD54-B98CCBCF4756}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82D7949B-2C36-4A72-AD54-B98CCBCF4756}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FE9EBD4-2CFB-4B84-8BD0-971A021D7E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FE9EBD4-2CFB-4B84-8BD0-971A021D7E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FE9EBD4-2CFB-4B84-8BD0-971A021D7E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FE9EBD4-2CFB-4B84-8BD0-971A021D7E1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B0E46DE-1E4B-433D-A98E-4E48A07FF182}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{18F60DE5-F74A-4F4F-8160-5F82B528D884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{18F60DE5-F74A-4F4F-8160-5F82B528D884}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18F60DE5-F74A-4F4F-8160-5F82B528D884}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,10 +27,6 @@ Global
 		{2AB18FBA-E3F3-4FD9-8366-BDCAE7D9BB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AB18FBA-E3F3-4FD9-8366-BDCAE7D9BB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AB18FBA-E3F3-4FD9-8366-BDCAE7D9BB5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23F89D2E-4F7C-4FF8-8CF0-4F429DA707A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23F89D2E-4F7C-4FF8-8CF0-4F429DA707A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23F89D2E-4F7C-4FF8-8CF0-4F429DA707A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23F89D2E-4F7C-4FF8-8CF0-4F429DA707A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
