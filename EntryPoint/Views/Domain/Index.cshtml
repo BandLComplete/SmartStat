@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - WebApplication2</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+</head>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Smart Stat</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Тренировки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Статистика</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <div class="text-center">
+            
+            @foreach (Practice p in Model)
+            {
+                <div class="pb-1">
+                <div>Название: @p.Name</div>
+                <div>Дата: @p.Date.ToShortDateString()</div>
+                <div>Время: @p.Date.ToShortTimeString()</div>
+                <div>Продолжительность: @p.Length.ToString()</div>
+                <div>Место: @p.Place</div>
+                <div>Тип: @p.Place</div>
+                    <div>Описание: @p.Description</div>
+                    </div>
+            }
+            
+            <form asp-controller="Domain" asp-action="Index">
+                <div class="form-group">
+                    <label for="name">Название тренировки</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Введите название тренировки">
+                </div>
+                <div class="form-group">
+                    <label for="inputDate">Введите дату:</label>
+                    <input id="inputDate" type="datetime-local" class="form-control" name="date">
+                </div>
+                <div class="form-group">
+                    <label for="length">Продолжительность тренировки в минутах</label>
+                    <input type="number" name="length" class="form-control" id="length" placeholder="Введите длительность тренировки">
+                </div>
+                <div class="form-group">
+                    <label for="place">Место</label>
+                    <input type="text" name="place" class="form-control" id="place" placeholder="Введите место тренировки">
+                </div>
+                <div class="form-group">
+                    <label for="type">Тип</label>
+                    <input type="text" name="type" class="form-control" id="type" placeholder="Введите тип тренировки">
+                </div>
+                <div class="form-group">
+                    <label for="description">Описание</label>
+                    <input type="text" name="description" class="form-control" id="description" placeholder="Введите описание тренировки">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" asp-controller="Domain" asp-action="Index">Добавить тренировку</button>
+            </form>
+        </div>
+    </main>
+</div>
+

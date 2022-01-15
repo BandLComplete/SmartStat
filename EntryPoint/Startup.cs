@@ -26,6 +26,6 @@ public class Startup
 		app.UseAuthorization();
 
 		app.UseEndpoints(endpoints =>
-			endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"));
+			endpoints.MapControllerRoute("default", "{controller=Domain}/{action=Index}/{id?}"));
 	}
 }

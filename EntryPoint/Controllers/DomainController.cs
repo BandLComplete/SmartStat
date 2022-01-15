@@ -14,6 +14,25 @@ public class DomainController : Controller
 		practices = context.Practices;
 		stats = context.Stats;
 	}
+	
+	public IActionResult Index(string? name, DateTime date, int length, string place, string type, string description)
+	{
+		if (name != null)
+		{
+			AddPractice(new Practice
+			{
+				Name = name,
+				Date = date,
+				Description = description,
+				Length = TimeSpan.FromMinutes(length),
+				Place = place,
+				Type = type,
+				Users = new[]{"whoyaka"}
+			});
+		}
+		var a = practices.Select(p => p.ToModel()).ToArray();
+		return View(a);
+	}
 
 	[HttpPost(Api.Login)]
 	public async Task<string> Login()
@@ -87,6 +106,12 @@ public class DomainController : Controller
 		practices.Add(practice.ToDb());
 		var result = await context.SaveChangesAsync() == 1;
 		return JsonSerializer.Serialize(result);
+	}
+
+	private void AddPractice(Practice practice)
+	{
+		practices.Add(practice.ToDb());
+		context.SaveChanges();
 	}
 
 	[HttpPost(Api.DeletePractice)]
