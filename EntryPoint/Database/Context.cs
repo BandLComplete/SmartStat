@@ -1,22 +1,22 @@
-using System;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
+namespace EntryPoint.Database;
 
-namespace EntryPoint.Database
+public class Context : DbContext
 {
-	public class Context : DbContext
+	private readonly string dbPath;
+
+#pragma warning disable 8618
+	public Context()
 	{
-		public DbSet<User> Users { get; set; }
-		
-		public string DbPath { get; private set; }
+		var folder = Environment.CurrentDirectory;
+		dbPath = Path.Combine(folder, "smartStat.db");
+	}
+#pragma warning restore 8618
+	public DbSet<UserDb> Users { get; set; }
+	public DbSet<PracticeDb> Practices { get; set; }
+	public DbSet<StatDb> Stats { get; set; }
 
-		public Context()
-		{
-			var folder = Environment.CurrentDirectory;
-			DbPath = Path.Combine(folder, "smartStat.db");
-		}
-
-		protected override void OnConfiguring(DbContextOptionsBuilder options)
-			=> options.UseSqlite($"Data Source={DbPath}");
+	protected override void OnConfiguring(DbContextOptionsBuilder options)
+	{
+		options.UseSqlite($"Data Source={dbPath}");
 	}
 }
